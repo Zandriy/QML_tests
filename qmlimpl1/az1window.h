@@ -3,15 +3,19 @@
 
 #include <QQuickWindow>
 
-class AZWindow : public QQuickWindow
+namespace AZ1 {
+
+class Window : public QQuickWindow
 {
     Q_OBJECT
 public:
-    AZWindow();
+    Window();
 
 signals:
 
 public slots:
 };
+
+} // namespace AZ1
 
 #endif // AZWINDOW_H

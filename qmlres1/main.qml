@@ -6,5 +6,5 @@ AZWindow {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
+    title: qsTr("AZ1 Window")
 }
