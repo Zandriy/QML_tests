@@ -1,10 +1,11 @@
-#ifndef AZ1GUIAPPLICATION_H
-#define AZ1GUIAPPLICATION_H
+#ifndef AZGUIAPPLICATION_H
+#define AZGUIAPPLICATION_H
 
 #include <QGuiApplication>
-#include <QQmlApplicationEngine>
+#include <core/azfactory.h>
+#include <memory>
 
-namespace AZ1 {
+namespace AZ {
 
 class GuiApplication : public QGuiApplication
 {
@@ -14,13 +15,13 @@ public:
     bool SetupQml();
 
 private:
-    QQmlApplicationEngine m_engine;
+    std::unique_ptr<Factory> m_factory;
 
 signals:
 
 public slots:
 };
 
-} //namespace AZ1
+} //namespace AZ
 
-#endif // AZ1GUIAPPLICATION_H
+#endif // AZGUIAPPLICATION_H

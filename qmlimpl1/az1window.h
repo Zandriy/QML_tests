@@ -9,7 +9,7 @@ class Window : public QQuickWindow
 {
     Q_OBJECT
 public:
-    Window();
+    Window(QWindow* parent = Q_NULLPTR);
 
 signals:
 

@@ -13,15 +13,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += main.cpp \
+    azguiapplication.cpp \
     qmlimpl1/az1window.cpp \
-    qmlimpl1/az1guiapplication.cpp
+    qmlimpl2/az2window.cpp \
+    qmlimpl1/az1factory.cpp \
+    qmlimpl2/az2factory.cpp \
 
 HEADERS += \
+    azguiapplication.h \
     core/azfactory.h \
     qmlimpl1/az1window.h \
-    qmlimpl1/az1guiapplication.h
+    qmlimpl2/az2window.h \
+    qmlimpl1/az1factory.h \
+    qmlimpl2/az2factory.h
 
-RESOURCES += qml.qrc
+RESOURCES += qmlres/qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

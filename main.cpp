@@ -1,4 +1,4 @@
-#include "qmlimpl1/az1guiapplication.h"
+#include "qmlimpl1/azguiapplication.h"
 #include <iostream>
 #include <exception>
 
@@ -9,7 +9,7 @@ try
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 
-    AZ1::GuiApplication app(argc, argv);
+    AZ::GuiApplication app(argc, argv);
     if(!app.SetupQml())
         return -1;
 

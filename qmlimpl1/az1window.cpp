@@ -2,9 +2,10 @@
 
 namespace AZ1 {
 
-Window::Window()
+Window::Window(QWindow *parent)
+    : QQuickWindow(parent)
 {
-
+    setTitle(tr("AZ1 Window"));
 }
 
 } //namespace AZ1

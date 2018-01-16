@@ -3,17 +3,11 @@
 
 namespace AZ {
 
-template<class ConcreteFactory>
 class Factory
 {
 public:
-    template<class T>
-    T create()
-    {
-        return m_factory.create<T>();
-    }
-private:
-    ConcreteFactory m_factory;
+    virtual bool createEngine() = 0;
+    virtual ~Factory(){}
 };
 
 } // namespace AZ
