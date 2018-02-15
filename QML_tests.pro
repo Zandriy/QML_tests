@@ -1,4 +1,4 @@
-QT += quick
+QT += qml quick
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -18,6 +18,9 @@ SOURCES += main.cpp \
     qmlimpl2/az2window.cpp \
     qmlimpl1/az1factory.cpp \
     qmlimpl2/az2factory.cpp \
+    qmlimpl2/az2item.cpp \
+    qmlimpl2/az2dia.cpp \
+    qmlimpl2/az2slice.cpp
 
 HEADERS += \
     azguiapplication.h \
@@ -25,7 +28,10 @@ HEADERS += \
     qmlimpl1/az1window.h \
     qmlimpl2/az2window.h \
     qmlimpl1/az1factory.h \
-    qmlimpl2/az2factory.h
+    qmlimpl2/az2factory.h \
+    qmlimpl2/az2item.h \
+    qmlimpl2/az2dia.h \
+    qmlimpl2/az2slice.h
 
 RESOURCES += qmlres/qml.qrc
 

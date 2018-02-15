@@ -1,4 +1,4 @@
-#include "qmlimpl1/azguiapplication.h"
+#include "azguiapplication.h"
 #include <iostream>
 #include <exception>
 

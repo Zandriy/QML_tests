@@ -1,1 +1,12 @@
 *.pro.user
+.qmake.stash
+.vs/
+GeneratedFiles/
+*.sln
+*.vcxproj
+*.vcxproj.*
+debug/
+release/
+x64/
+*.autosave
+

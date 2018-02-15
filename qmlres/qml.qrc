@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>uicomp/RectRed.qml</file>
+        <file>uicomp/RectGreen.qml</file>
     </qresource>
 </RCC>
