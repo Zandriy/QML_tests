@@ -60,11 +60,11 @@ AZWindow {
 
     Text{
         anchors{bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; bottomMargin: 20}
-        text: aAZItem.name + "Click anywere"
+        text: aAZItem.name + ": Click anywere"
     }
 
     //Component.onCompleted: console.log("The item 3 is colored " + aAZItem3.itemSlice.color)
 
-    //    UIComp.RectRed{id:rectRed}
-    //    UIComp.RectGreen{id:rectGreen}
+    UIComp.RectRed{id:rectRed}
+    UIComp.RectGreen{id:rectGreen}
 }

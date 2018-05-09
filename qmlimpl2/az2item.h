@@ -21,13 +21,14 @@ public:
 
     void paint(QPainter *painter) override;
 
-    Q_INVOKABLE void clear();
+    //Q_INVOKABLE void clear();
 
 signals:
     void colorChanged();
     void cleared();
 
 public slots:
+    void clear();
 
 private:
     QString m_name;

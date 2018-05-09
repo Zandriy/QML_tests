@@ -6,6 +6,7 @@ Window::Window(QWindow *parent)
     : QQuickView(parent)
 {
     setTitle(tr("AZ2 Window"));
+    setResizeMode(QQuickView::SizeViewToRootObject);
 }
 
 } //namespace AZ2
