@@ -4,6 +4,7 @@
         <file>RowRepeater.qml</file>
         <file>RowMixRepeater.qml</file>
         <file>ColumnRepeater.qml</file>
+        <file>LoadedRepeater.qml</file>
         <file>ColumnTextRepeater.qml</file>
     </qresource>
 </RCC>

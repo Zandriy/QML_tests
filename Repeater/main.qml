@@ -1,7 +1,9 @@
-import QtQuick 2.10
-import QtQuick.Window 2.10
+import QtQuick 2.0
+import QtQuick.Window 2.0
 
 Window {
+    id: window
+
     visible: true
     width: 640
     height: 480
@@ -25,5 +27,10 @@ Window {
     ColumnTextRepeater{
         x: 340
         y: 10
+    }
+
+    Component.onCompleted: {
+        var component = Qt.createComponent("LoadedRepeater.qml");
+        var incubator = component.incubateObject(window, {"x": 400, "y": 100, "entries": ["one", "two", "three"]});
     }
 }
