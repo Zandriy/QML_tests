@@ -5,8 +5,9 @@ import QtQuick.Dialogs 1.2
 ApplicationWindow {
     visible: true
     width: 200
-    height: 600
+    height: 800
     title: qsTr("Hello Incubator")
+    property bool clickCreate: false
 
     menuBar: MenuBar {
         Menu {
@@ -35,5 +36,18 @@ ApplicationWindow {
         id: col2
         x: col1.width + 10
         y: 0
+    }
+
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            if(!clickCreate)
+            {
+                col1.incubate()
+                col2.incubate()
+            }
+            clickCreate = true
+        }
     }
 }

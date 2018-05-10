@@ -2,6 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>ColumnList.qml</file>
-        <file>ColomnListItem.qml</file>
+        <file>ColumnListItem.qml</file>
     </qresource>
 </RCC>
