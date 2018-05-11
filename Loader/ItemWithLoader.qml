@@ -3,9 +3,10 @@ import QtQuick 2.0
 Item {
     anchors.fill: parent
 
-    Rectangle {
+    ItemForLoader {
         id: rect
         color: "red"
+        anchors.fill: null
         x: parent.x
         y: parent.y
         width: parent.width/2
@@ -17,13 +18,6 @@ Item {
                 rect.z = -1
             }
         }
-        Text {
-            id: rectText
-            anchors.centerIn: parent
-            text: "Z: " + rect.z
-            font.pixelSize: 30
-            color: "white"
-        }
     }
 
     Loader {
@@ -34,12 +28,28 @@ Item {
         height: parent.height/2
     }
 
+    Loader {
+        id: loadedRectComp
+        x: parent.x + parent.width/2
+        y: parent.y + parent.height/2
+        width: parent.width/2
+        height: parent.height/2
+    }
+
     MouseArea {
         anchors.fill: parent
         onClicked:
         {
             rect.z = 1
             loadedRect.source = "ItemForLoader.qml"
+            loadedRectComp.sourceComponent = rectComp
+        }
+    }    
+
+    Component {
+        id: rectComp
+        ItemForLoader {
+            color: "green"
         }
     }
 }
