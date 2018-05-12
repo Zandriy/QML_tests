@@ -4,11 +4,12 @@ Column {
     id: root
     spacing: 2
     property bool sync: false
+    property variant colors: ["red", "green", "blue", "gray", "black"]
 
     Repeater {
-        model: ["red", "green", "blue", "gray", "black"]
+        model: 5
         ColumnListItem {
-            color: modelData
+            color: colors[index%5]
             createID: index
         }
     }
@@ -20,12 +21,11 @@ Column {
     function incubate() {
         console.log("============== ", sync ? " Sync " : "Async", " begin")
         var i = 0;
-        Qt.createComponent("ColumnListItem.qml").incubateObject(root, {"color": "red", "createID": i++}, sync ? Qt.Synchronous : Qt.Asynchronous);
-        Qt.createComponent("ColumnListItem.qml").incubateObject(root, {"color": "green", "createID": i++}, sync ? Qt.Synchronous : Qt.Asynchronous);
-        Qt.createComponent("ColumnListItem.qml").incubateObject(root, {"color": "blue", "createID": i++}, sync ? Qt.Synchronous : Qt.Asynchronous);
-        Qt.createComponent("ColumnListItem.qml").incubateObject(root, {"color": "gray", "createID": i++}, sync ? Qt.Synchronous : Qt.Asynchronous);
-        Qt.createComponent("ColumnListItem.qml").incubateObject(root, {"color": "black", "createID": i++}, sync ? Qt.Synchronous : Qt.Asynchronous);
+        Qt.createComponent("ColumnListItem.qml").incubateObject(root, {"color": colors[i%5], "createID": i++}, sync ? Qt.Synchronous : Qt.Asynchronous);
+        Qt.createComponent("ColumnListItem.qml").incubateObject(root, {"color": colors[i%5], "createID": i++}, sync ? Qt.Synchronous : Qt.Asynchronous);
+        Qt.createComponent("ColumnListItem.qml").incubateObject(root, {"color": colors[i%5], "createID": i++}, sync ? Qt.Synchronous : Qt.Asynchronous);
+        Qt.createComponent("ColumnListItem.qml").incubateObject(root, {"color": colors[i%5], "createID": i++}, sync ? Qt.Synchronous : Qt.Asynchronous);
+        Qt.createComponent("ColumnListItem.qml").incubateObject(root, {"color": colors[i%5], "createID": i++}, sync ? Qt.Synchronous : Qt.Asynchronous);
         console.log("============== ", sync ? " Sync " : "Async", " end")
-
     }
 }
