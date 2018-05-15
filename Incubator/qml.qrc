@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>ColumnList.qml</file>
         <file>ColumnListItem.qml</file>
+        <file>ListRepeater.qml</file>
     </qresource>
 </RCC>

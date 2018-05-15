@@ -5,12 +5,13 @@ Column {
     spacing: 2
     property bool sync: false
     property variant colors: ["red", "green", "blue", "gray", "black"]
+    property int i: 0
 
     Repeater {
         model: 5
         ColumnListItem {
             color: colors[index%5]
-            createID: index
+            createID: index*-1
         }
     }
 
@@ -20,7 +21,6 @@ Column {
 
     function incubate() {
         console.log("============== ", sync ? " Sync " : "Async", " begin")
-        var i = 0;
         Qt.createComponent("ColumnListItem.qml").incubateObject(root, {"color": colors[i%5], "createID": i++}, sync ? Qt.Synchronous : Qt.Asynchronous);
         Qt.createComponent("ColumnListItem.qml").incubateObject(root, {"color": colors[i%5], "createID": i++}, sync ? Qt.Synchronous : Qt.Asynchronous);
         Qt.createComponent("ColumnListItem.qml").incubateObject(root, {"color": colors[i%5], "createID": i++}, sync ? Qt.Synchronous : Qt.Asynchronous);
