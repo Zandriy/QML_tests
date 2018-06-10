@@ -10,4 +10,6 @@ release/
 x64/
 *.autosave
 build-*/
+*.qmlc
+*.qmlproject.user
 
