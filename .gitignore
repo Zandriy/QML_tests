@@ -12,4 +12,6 @@ x64/
 build-*/
 *.qmlc
 *.qmlproject.user
+*.jsc
+*.qmlc.*
 
