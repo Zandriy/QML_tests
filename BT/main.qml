@@ -14,19 +14,36 @@ Window {
         id: btDevice
 
         onActiveChanged: btnActivate.text = name
-        onVisibleChanged: btnVisible.text = visible ? "visible" : "not visible"
+        onVisibleChanged: {
+            btnVisible.text = visible ? "visible" : "not visible"
+            connList.model = btDevice.connDevices
+        }
+        onScanFinished: {
+            btnScan.text = "scan"
+            foundList.model = btDevice.foundDevices
+        }
     }
 
-    TextArea {
+    ListView {
+        id: connList
         x: 0
         y: 0
-        width: parent.width
+        width: parent.width/2
         height: parent.height/2
-        text:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit, " +
-            "sed do eiusmod tempor incididunt ut labore et dolore magna " +
-            "aliqua. Ut enim ad minim veniam, quis nostrud exercitation " +
-            "ullamco laboris nisi ut aliquip ex ea commodo cosnsequat. ";
+
+        model: btDevice.connDevices
+        delegate: Text {text: modelData }
+    }
+
+    ListView {
+        id: foundList
+        x: parent.width/2
+        y: 0
+        width: parent.width/2
+        height: parent.height/2
+
+        model: btDevice.foundDevices
+        delegate: Text {text: modelData }
     }
 
     Button {
@@ -49,7 +66,18 @@ Window {
         onClicked: {
             btDevice.switchVisible()
         }
-    }
+    }    
 
+    Button {
+        id: btnScan
+        text: "scan"
+        x: 0
+        y: parent.height/2 + 150
+        width: parent.width/2
+        onClicked: {
+            text = "###"
+            btDevice.scan()
+        }
+    }
 
 }

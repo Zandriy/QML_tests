@@ -1,6 +1,9 @@
 #include "btdevice.h"
 
 #include <QBluetoothLocalDevice>
+#include <QBluetoothDeviceDiscoveryAgent>
+#include <QStringList>
+#include <QString>
 
 #include <QDebug>
 
@@ -25,7 +28,7 @@ void BTDevice::switchPower()
     {
         m_active = false;
     }
-    emit onActiveChanged();
+    emit activeChanged();
 }
 
 void BTDevice::switchVisible()
@@ -44,7 +47,26 @@ void BTDevice::switchVisible()
         m_device->setHostMode(QBluetoothLocalDevice::HostPoweredOff);
         m_visible = false;
     }
-    emit onVisibleChanged();
+    emit visibleChanged();
+}
+
+void BTDevice::scan()
+{
+    if(!m_active)
+    {
+        return;
+    }
+    m_foundDevices.clear();
+    QBluetoothDeviceDiscoveryAgent *discoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
+    connect(discoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered, this, &BTDevice::deviceFound);
+    connect(discoveryAgent, &QBluetoothDeviceDiscoveryAgent::finished, this, &BTDevice::scanFinished);
+
+    discoveryAgent->start();
+}
+
+void BTDevice::deviceFound(const QBluetoothDeviceInfo &device)
+{
+    m_foundDevices.push_back(device.name());
 }
 
 QString BTDevice::name() const
@@ -67,4 +89,25 @@ bool BTDevice::isActive() const
 bool BTDevice::isVisible() const
 {
     return m_visible && m_active;
+}
+
+QStringList BTDevice::connDevices() const
+{
+    if(!m_active)
+    {
+        return QStringList{};
+    }
+    QList<QBluetoothAddress> remotes;
+    remotes = m_device->connectedDevices();
+    QStringList remotesStr;
+    for(auto& r : remotes)
+    {
+        remotesStr.push_back(r.toString());
+    }
+    return remotesStr;
+}
+
+const QStringList &BTDevice::foundDevices() const
+{
+    return m_foundDevices;
 }
