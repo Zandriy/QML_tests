@@ -5,6 +5,7 @@
 
 class QBluetoothLocalDevice;
 class QBluetoothDeviceInfo;
+class QBluetoothDeviceDiscoveryAgent;
 
 class BTDevice : public QObject
 {
@@ -38,7 +39,9 @@ signals:
     void scanFinished();
 
 private:
+
     QBluetoothLocalDevice* m_device{nullptr};
+    QBluetoothDeviceDiscoveryAgent* m_discoveryAgent{nullptr};
     QStringList m_foundDevices;
     bool m_active{false};
     bool m_visible{false};

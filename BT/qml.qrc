@@ -1,5 +1,10 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>perfectBUTTON.png</file>
+        <file>perfect_main.qml</file>
+        <file>background_circle.png</file>
+        <file>MyButton.qml</file>
+        <file>MyListView.qml</file>
     </qresource>
 </RCC>

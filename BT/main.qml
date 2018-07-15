@@ -1,7 +1,6 @@
 import QtQuick 2.10
-import QtQuick.Window 2.10
-import QtQuick.Controls 1.4
-
+import QtQuick.Window 2.3
+import QtQuick.Controls 2.2
 import io.az.backend 1.0
 
 Window {
@@ -19,7 +18,7 @@ Window {
             connList.model = btDevice.connDevices
         }
         onScanFinished: {
-            btnScan.text = "scan"
+            //btnScan.text = "scan"
             foundList.model = btDevice.foundDevices
         }
     }
@@ -68,16 +67,38 @@ Window {
         }
     }    
 
-    Button {
+    BorderImage {
         id: btnScan
-        text: "scan"
-        x: 0
-        y: parent.height/2 + 150
-        width: parent.width/2
-        onClicked: {
-            text = "###"
-            btDevice.scan()
+
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+              //  text = "###"
+                btDevice.scan()
+            }
         }
-    }
+                //text: "scan"
+                x: 0
+                y: parent.height/2 + 150
+                width: parent.width/2
+                source: "perfectBUTTON.png"
+                //width: parent.width; height: parent.height
+                border.left: 25; border.top: 25
+                border.right: 25; border.bottom: 25
+                horizontalTileMode: BorderImage.Round
+                verticalTileMode: BorderImage.Round
+            }
+
+//    Button {
+//        id: btnScan
+//        text: "scan"
+//        x: 0
+//        y: parent.height/2 + 150
+//        width: parent.width/2
+//        onClicked: {
+//            text = "###"
+//            btDevice.scan()
+//        }
+//    }
 
 }

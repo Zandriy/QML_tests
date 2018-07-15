@@ -8,9 +8,11 @@
 #include <QDebug>
 
 BTDevice::BTDevice()
-    : m_device{new QBluetoothLocalDevice}
+    : m_device{new QBluetoothLocalDevice(this)}
+    , m_discoveryAgent{new QBluetoothDeviceDiscoveryAgent(this)}
 {
-
+    connect(m_discoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered, this, &BTDevice::deviceFound);
+    connect(m_discoveryAgent, &QBluetoothDeviceDiscoveryAgent::finished, this, &BTDevice::scanFinished);
 }
 
 void BTDevice::switchPower()
@@ -57,16 +59,12 @@ void BTDevice::scan()
         return;
     }
     m_foundDevices.clear();
-    QBluetoothDeviceDiscoveryAgent *discoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
-    connect(discoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered, this, &BTDevice::deviceFound);
-    connect(discoveryAgent, &QBluetoothDeviceDiscoveryAgent::finished, this, &BTDevice::scanFinished);
-
-    discoveryAgent->start();
+    m_discoveryAgent->start();
 }
 
 void BTDevice::deviceFound(const QBluetoothDeviceInfo &device)
 {
-    m_foundDevices.push_back(device.name());
+    m_foundDevices.push_back(device.address().toString());
 }
 
 QString BTDevice::name() const

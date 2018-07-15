@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/0.png</file>
+        <file>res/1.png</file>
+        <file>res/2.png</file>
+        <file>res/3.png</file>
+        <file>res/4.png</file>
+        <file>res/5.png</file>
+        <file>res/6.png</file>
+        <file>res/7.png</file>
+        <file>res/8.png</file>
+        <file>res/9.png</file>
+        <file>StartQml/SigStartWindow.qml</file>
+        <file>StartQml/SigMainMenuModel.qml</file>
+        <file>StartQml/main.qml</file>
+        <file>StartQml/Menu/SigStartMenuItemForm10.ui.qml</file>
+        <file>StartQml/Menu/SigStartMenuItem10.qml</file>
+    </qresource>
+</RCC>

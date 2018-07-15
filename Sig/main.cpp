@@ -1,17 +1,16 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <btdevice.h>
 
 int main(int argc, char *argv[])
 {
+    //qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
+
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
 
-    qmlRegisterType<BTDevice>("io.az.backend", 1, 0, "BTDevice");
-
     QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/perfect_main.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/StartQml/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
 
