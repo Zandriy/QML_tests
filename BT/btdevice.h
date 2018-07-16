@@ -19,11 +19,11 @@ public:
     BTDevice();
 
     QString name() const;
-    bool isActive() const;
-    bool isVisible() const;
     QStringList connDevices() const;
     const QStringList& foundDevices() const;
 
+    Q_INVOKABLE bool isActive() const;
+    Q_INVOKABLE bool isVisible() const;
 
 public slots:
     void switchPower();

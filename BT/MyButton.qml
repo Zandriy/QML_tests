@@ -6,16 +6,16 @@ import QtQuick.Layouts 1.3
 Button {
     property string button_name: "Button"
     Layout.alignment: Qt.AlignCenter
-    Layout.preferredWidth: parent.width - 20
+    Layout.preferredWidth: parent.width/2 - 20
 
     Rectangle{
         anchors.fill: parent
-        color: parent.pressed ? main2_color : main_color
+        color: parent.pressed ? main2_color : (enabled ? main_color : main2_color)
         Text {
             text: button_name
             color: light_color
             anchors.centerIn: parent
-            font.pixelSize: parent.width * 0.04
+            font.pixelSize: parent.width * 0.1
         }
     }
 }

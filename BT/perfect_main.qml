@@ -26,7 +26,12 @@ Window {
         }
         onScanFinished: {
             busy.visible = false
-            foundList.list_data = btDevice.foundDevices
+            connList.list_data = btDevice.foundDevices
+            connList.list_name = "Devices available:"
+            btnActivate.enabled = true
+            btnVisible.enabled = Qt.binding(function() {return btDevice.isActive()})
+            btnConnected.enabled = Qt.binding(function() {return btDevice.isActive()})
+            btnScan.enabled = Qt.binding(function() {return btDevice.isActive()})
         }
     }
 
@@ -83,53 +88,57 @@ Window {
                         pixelSize: parent.width * 0.035 }
                 }
 
-                RowLayout {
+                GridLayout {
                     Layout.alignment: Qt.AlignCenter
                     Layout.preferredWidth: parent.width
 
-                    MyListView {
-                        id: connList
-                        list_name: "Connected to:"
-                        list_data: btDevice.connDevices
+                    columns: 2
+
+                    MyButton {
+                        id: btnActivate
+                        button_name: qsTr("Activate")
+                        onClicked: {
+                            btDevice.switchPower()
+                        }
                     }
 
-                    MyListView {
-                        id: foundList
-                        list_name: "Devices available:"
-                        list_data: btDevice.foundDevices
+                    MyButton {
+                        id: btnVisible
+                        enabled: btDevice.active
+                        button_name: qsTr("Not visible")
+                        onClicked: {
+                            btDevice.switchVisible()
+                        }
+                    }
+
+                    MyButton {
+                        id: btnScan
+                        enabled: btDevice.active
+                        button_name: qsTr("Scan")
+                        onClicked: {
+                            busy.visible = true
+                            btDevice.scan()
+                            btnActivate.enabled = false
+                            btnVisible.enabled = false
+                            btnConnected.enabled = false
+                            enabled = false
+                        }
+                    }
+
+                    MyButton {
+                        id: btnConnected
+                        button_name: qsTr("Connected")
+                        enabled: btDevice.active
+                        onClicked: {
+                            connList.list_data = btDevice.connDevices
+                            connList.list_name = "Connected to:"
+                        }
                     }
                 }
 
-                MyButton {
-                    id: btnActivate
-                    button_name: qsTr("Activate")
-                    onClicked: {
-                        btDevice.switchPower()
-                    }
-                }
-
-                MyButton {
-                    id: btnVisible
-                    button_name: qsTr("Not visible")
-                    onClicked: {
-                        btDevice.switchVisible()
-                    }
-                }
-
-                MyButton {
-                    id: btnScan
-                    button_name: qsTr("Scan")
-                    onClicked: {
-                        busy.visible = true
-                        btDevice.scan()
-                    }
-                }
-
-                MyButton {
-                    button_name: qsTr("Update connected list")
-                    onClicked: {
-                        connList.list_data = btDevice.connDevices
-                    }
+                MyListView {
+                    id: connList
+                    Layout.preferredWidth: parent.width
                 }
 
                 Rectangle {

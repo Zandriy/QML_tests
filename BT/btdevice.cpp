@@ -13,6 +13,7 @@ BTDevice::BTDevice()
 {
     connect(m_discoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered, this, &BTDevice::deviceFound);
     connect(m_discoveryAgent, &QBluetoothDeviceDiscoveryAgent::finished, this, &BTDevice::scanFinished);
+    connect(this, &BTDevice::activeChanged, this, &BTDevice::visibleChanged);
 }
 
 void BTDevice::switchPower()
@@ -25,9 +26,14 @@ void BTDevice::switchPower()
     {
         m_device->powerOn();
         m_active = true;
+        if(m_visible)
+        {
+            m_device->setHostMode(QBluetoothLocalDevice::HostDiscoverable);
+        }
     }
     else
     {
+        m_device->setHostMode(QBluetoothLocalDevice::HostPoweredOff);
         m_active = false;
     }
     emit activeChanged();
@@ -46,7 +52,7 @@ void BTDevice::switchVisible()
     }
     else
     {
-        m_device->setHostMode(QBluetoothLocalDevice::HostPoweredOff);
+        m_device->setHostMode(QBluetoothLocalDevice::HostDiscoverableLimitedInquiry);
         m_visible = false;
     }
     emit visibleChanged();
@@ -86,7 +92,7 @@ bool BTDevice::isActive() const
 
 bool BTDevice::isVisible() const
 {
-    return m_visible && m_active;
+    return m_active && m_visible;
 }
 
 QStringList BTDevice::connDevices() const
