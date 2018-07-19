@@ -24,14 +24,19 @@ Window {
         onVisibleChanged: {
             btnVisible.button_name = visible ? "Visible" : "Not visible"
         }
-        onScanFinished: {
+        onScanDevicesFinished: {
             busy.visible = false
             connList.list_data = btDevice.foundDevices
             connList.list_name = "Devices available:"
             btnActivate.enabled = true
             btnVisible.enabled = Qt.binding(function() {return btDevice.isActive()})
             btnConnected.enabled = Qt.binding(function() {return btDevice.isActive()})
-            btnScan.enabled = Qt.binding(function() {return btDevice.isActive()})
+            btnScanDev.enabled = Qt.binding(function() {return btDevice.isActive()})
+        }
+        onScanServicesFinished: {
+            busy.visible = false
+            connList.list_data = btDevice.foundServices
+            connList.list_name = "Services available:"
         }
     }
 
@@ -112,12 +117,12 @@ Window {
                     }
 
                     MyButton {
-                        id: btnScan
+                        id: btnScanDev
                         enabled: btDevice.active
-                        button_name: qsTr("Scan")
+                        button_name: qsTr("Scan Dev")
                         onClicked: {
                             busy.visible = true
-                            btDevice.scan()
+                            btDevice.scanDevices()
                             btnActivate.enabled = false
                             btnVisible.enabled = false
                             btnConnected.enabled = false
@@ -134,6 +139,17 @@ Window {
                             connList.list_name = "Connected to:"
                         }
                     }
+
+                    MyButton {
+                        id: btnScanServices
+                        enabled: btDevice.active
+                        button_name: qsTr("Scan Serv")
+                        onClicked: {
+                            busy.visible = true
+                            btDevice.scanServices()
+                        }
+                    }
+
                 }
 
                 MyListView {

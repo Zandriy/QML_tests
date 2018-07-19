@@ -2,18 +2,23 @@
 
 #include <QBluetoothLocalDevice>
 #include <QBluetoothDeviceDiscoveryAgent>
+#include <QBluetoothServiceDiscoveryAgent>
 #include <QStringList>
 #include <QString>
 
 #include <QDebug>
 
 BTDevice::BTDevice()
-    : m_device{new QBluetoothLocalDevice(this)}
-    , m_discoveryAgent{new QBluetoothDeviceDiscoveryAgent(this)}
+    : m_device{new QBluetoothLocalDevice{this}}
+    , m_devDiscoveryAgent{new QBluetoothDeviceDiscoveryAgent{this}}
+    , m_serviceDiscoveryAgent{new QBluetoothServiceDiscoveryAgent{this}}
 {
-    connect(m_discoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered, this, &BTDevice::deviceFound);
-    connect(m_discoveryAgent, &QBluetoothDeviceDiscoveryAgent::finished, this, &BTDevice::scanFinished);
+    connect(m_devDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered, this, &BTDevice::deviceFound);
+    connect(m_devDiscoveryAgent, &QBluetoothDeviceDiscoveryAgent::finished, this, &BTDevice::scanDevicesFinished);
     connect(this, &BTDevice::activeChanged, this, &BTDevice::visibleChanged);
+
+    connect(m_serviceDiscoveryAgent, &QBluetoothServiceDiscoveryAgent::serviceDiscovered, this, &BTDevice::serviceFound);
+    connect(m_serviceDiscoveryAgent, &QBluetoothServiceDiscoveryAgent::finished, this, &BTDevice::scanServicesFinished);
 }
 
 void BTDevice::switchPower()
@@ -58,19 +63,34 @@ void BTDevice::switchVisible()
     emit visibleChanged();
 }
 
-void BTDevice::scan()
+void BTDevice::scanDevices()
 {
     if(!m_active)
     {
         return;
     }
     m_foundDevices.clear();
-    m_discoveryAgent->start();
+    m_devDiscoveryAgent->start();
+}
+
+void BTDevice::scanServices()
+{
+    if(!m_active)
+    {
+        return;
+    }
+    m_foundServices.clear();
+    m_serviceDiscoveryAgent->start(QBluetoothServiceDiscoveryAgent::FullDiscovery);
 }
 
 void BTDevice::deviceFound(const QBluetoothDeviceInfo &device)
 {
     m_foundDevices.push_back(device.address().toString());
+}
+
+void BTDevice::serviceFound(const QBluetoothServiceInfo &service)
+{
+    m_foundServices.push_back(service.serviceName() + " | " + service.serviceUuid().toString());
 }
 
 QString BTDevice::name() const
@@ -114,4 +134,9 @@ QStringList BTDevice::connDevices() const
 const QStringList &BTDevice::foundDevices() const
 {
     return m_foundDevices;
+}
+
+const QStringList &BTDevice::foundServices() const
+{
+    return m_foundServices;
 }
