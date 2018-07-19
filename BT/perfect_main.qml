@@ -24,7 +24,7 @@ Window {
         onVisibleChanged: {
             btnVisible.button_name = visible ? "Visible" : "Not visible"
         }
-        onScanFinished: {
+        onScanDevicesFinished: {
             busy.visible = false
             connList.list_data = btDevice.foundDevices
             connList.list_name = "Devices available:"
