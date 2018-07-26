@@ -6,7 +6,7 @@ import QtQuick.Layouts 1.3
 Rectangle {
     property alias list_data: m_data.model
 
-    property string list_name: "Name"
+    property string list_name: ""
 
     color: "transparent"
     border.color: main_color
